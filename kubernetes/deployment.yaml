@@ -16,5 +16,10 @@ spec:
       containers:
         - name: cours-sysops
           image: ghcr.io/oumar49/cours-sysops:tp2
+          envFrom:
+            - configMapRef:
+                name: cours-sysops-config
+            - secretRef:
+                name: cours-sysops-secret
           ports:
             - containerPort: 5000
