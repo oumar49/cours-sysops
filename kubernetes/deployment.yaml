@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: cours-sysops
+  namespace: sysops
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: cours-sysops
+  template:
+    metadata:
+      labels:
+        app: cours-sysops
+    spec:
+      containers:
+        - name: cours-sysops
+          image: ghcr.io/oumar49/cours-sysops:tp2
+          ports:
+            - containerPort: 5000
