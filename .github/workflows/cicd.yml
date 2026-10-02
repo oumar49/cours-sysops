@@ -96,10 +96,10 @@ jobs:
           kubectl apply -f kubernetes/configmap.yaml
 
           kubectl create secret generic cours-sysops-secret \
-          --from-literal=API_KEY=demo \
-          -n sysops \
-          --dry-run=client \
-          -o yaml | kubectl apply -f -
+            --from-literal=API_KEY=demo \
+            -n sysops \
+            --dry-run=client \
+            -o yaml | kubectl apply -f -
 
 
       # --------------------------------------------------
@@ -124,7 +124,7 @@ jobs:
 
 
       # --------------------------------------------------
-      # 11. Attendre le déploiement
+      # 11. Attendre le rollout
       # --------------------------------------------------
 
       - name: Wait for rollout
@@ -163,7 +163,6 @@ jobs:
 
       - name: Test application
         run: |
-
           kubectl port-forward \
             -n sysops \
             svc/cours-sysops \
@@ -171,14 +170,12 @@ jobs:
             > /tmp/port-forward.log 2>&1 &
 
           for i in $(seq 1 30); do
-
             if curl -fsS http://localhost:8080; then
               echo "Application is responding"
               exit 0
             fi
 
             sleep 2
-
           done
 
           echo "Application test failed"
