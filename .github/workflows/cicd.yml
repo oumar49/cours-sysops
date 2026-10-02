@@ -94,7 +94,12 @@ jobs:
       - name: Deploy configuration
         run: |
           kubectl apply -f kubernetes/configmap.yaml
-          kubectl apply -f kubernetes/secret.yaml
+
+          kubectl create secret generic cours-sysops-secret \
+          --from-literal=API_KEY=demo \
+          -n sysops \
+          --dry-run=client \
+          -o yaml | kubectl apply -f -
 
 
       # --------------------------------------------------
